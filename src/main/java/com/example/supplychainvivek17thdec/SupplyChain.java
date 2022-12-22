@@ -21,6 +21,9 @@ import java.io.IOException;
 public class SupplyChain extends Application {
     public static final int width = 700, height = 600, headerBar = 50;
     Pane bodyPane = new Pane();
+    Login login = new Login();
+
+    ProductDetails productDetails = new ProductDetails();
     private GridPane headerBar(){
         TextField searchText = new TextField();
         Button searchButton = new Button("search");
@@ -32,7 +35,7 @@ public class SupplyChain extends Application {
         gridPane.setMinSize(bodyPane.getMinWidth(), headerBar-10);
         gridPane.setVgap(5);
         gridPane.setHgap(5);
-        gridPane.setStyle("-fx-background-color: #C0C0C0");
+     //   gridPane.setStyle("-fx-background-color: #FF9900");   gives range in the search box.
         gridPane.setAlignment(Pos.CENTER);
         return gridPane;
 
@@ -51,7 +54,13 @@ public class SupplyChain extends Application {
             public void handle(ActionEvent actionEvent) {
                 String email = emailTextField.getText();
                 String password = passwordField.getText();
-                messageLabel.setText(email +" ** "+ password);
+         // messageLabel.setText(email +" ** "+ password);
+               if(login.customerLogin(email, password)){
+                   messageLabel.setText("Login Successful");
+               }
+               else {
+                   messageLabel.setText("Login Failed");
+               }
             }
         });
 
@@ -59,7 +68,7 @@ public class SupplyChain extends Application {
         gridPane.setMinSize(bodyPane.getMinWidth(), bodyPane.getMinHeight());
         gridPane.setVgap(5);
         gridPane.setHgap(5);
-        gridPane.setStyle("-fx-background-color: #C0C0C0");
+        gridPane.setStyle("-fx-background-color: #FF9900");
 
 
         gridPane.setAlignment(Pos.CENTER);
@@ -77,15 +86,17 @@ public class SupplyChain extends Application {
  private Pane createContent(){
      Pane root = new Pane();
      root.setPrefSize(width, height+headerBar);
+
      bodyPane.setMinSize(width, height);
      bodyPane.setTranslateY(headerBar);
-      bodyPane.getChildren().addAll(loginPage());
+
+      bodyPane.getChildren().addAll(productDetails.getAllProducts());
+
      root.getChildren().addAll(headerBar(), bodyPane);
      return root;
  }
     @Override
     public void start(Stage stage) throws IOException {
-       // FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(createContent());
         stage.setTitle("Hello!");
         stage.setScene(scene);
