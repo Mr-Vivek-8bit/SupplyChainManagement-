@@ -24,9 +24,22 @@ public class SupplyChain extends Application {
     Login login = new Login();
 
     ProductDetails productDetails = new ProductDetails();
+
+
     private GridPane headerBar(){
         TextField searchText = new TextField();
         Button searchButton = new Button("search");
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String productName = searchText.getText();
+
+                //clear body and put this new pane
+                bodyPane.getChildren().clear();
+                bodyPane.getChildren().add(productDetails.getProductsByName(productName));
+            }
+        });
+
         GridPane gridPane = new GridPane();
 
         gridPane.add(searchText, 0,0);
