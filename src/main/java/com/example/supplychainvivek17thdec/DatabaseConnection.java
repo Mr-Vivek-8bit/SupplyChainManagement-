@@ -18,7 +18,7 @@ public class DatabaseConnection {
         return statement;
     }
 
-    public ResultSet getQuerytable(String query){
+    public ResultSet getQueryTable(String query){
         Statement statement = getStatement();
         try{
             return statement.executeQuery(query);
@@ -28,9 +28,19 @@ public class DatabaseConnection {
         return null;
     }
 
+    public int executeUpdateQuery(String query){
+        Statement statement = getStatement();
+        try{
+            return statement.executeUpdate(query);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         DatabaseConnection databaseConnection = new DatabaseConnection();
-        ResultSet rs = databaseConnection.getQuerytable("SELECT email, first_name FROM CUSTOMER");
+        ResultSet rs = databaseConnection.getQueryTable("SELECT email, first_name FROM CUSTOMER");
         try{
             while(rs.next()){
                 System.out.println(rs.getString("email")+" "+ rs.getString("first_name"));

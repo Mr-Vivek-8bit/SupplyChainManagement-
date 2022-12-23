@@ -31,7 +31,7 @@ public class Login {
         String query = String.format("SELECT * FROM customer WHERE email = '%s' AND password = '%s' ", email, password);
         try {
             DatabaseConnection dbCon = new DatabaseConnection();
-            ResultSet rs = dbCon.getQuerytable(query);
+            ResultSet rs = dbCon.getQueryTable(query);
             if (rs != null && rs.next()) {
                 return true;
             }

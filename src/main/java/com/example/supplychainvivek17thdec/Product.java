@@ -33,7 +33,7 @@ public class Product {
         ObservableList<Product> productList = FXCollections.observableArrayList();
         String selectProducts = "SELECT * FROM product";
         try{
-            ResultSet rs = databaseConnection.getQuerytable(selectProducts);
+            ResultSet rs = databaseConnection.getQueryTable(selectProducts);
             while(rs.next()){
                 productList.add(
                         new Product(rs.getInt("product_id"),
@@ -55,7 +55,7 @@ public class Product {
         ObservableList<Product> productList = FXCollections.observableArrayList();
         String selectProducts = String.format("SELECT * FROM product WHERE lower(name) like '%%%s%%' ", productName.toLowerCase());
         try{
-            ResultSet rs = databaseConnection.getQuerytable(selectProducts);
+            ResultSet rs = databaseConnection.getQueryTable(selectProducts);
             while(rs.next()){
                 productList.add(
                         new Product(rs.getInt("product_id"),
